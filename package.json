@@ -8,7 +8,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "build-category-lib":"ng build category-lib",
-    "build-image-selector-lib":"ng build image-selector-lib"
+    "build-image-selector-lib":"ng build image-selector-lib",
+    "pack-category-lib":"cd dist/category-lib && npm pack",
+    "pack-image-selector-lib":"cd dist/image-selector-lib && npm pack"
   },
   "private": true,
   "dependencies": {
