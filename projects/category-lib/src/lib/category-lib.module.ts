@@ -1,19 +1,33 @@
 import { NgModule } from '@angular/core';
-import { CategoryLibComponent } from './category-lib.component';
 import { CategoryLibRoutingModule } from './category-lib-routing.module';
-
-
+import { CategoryListComponent } from './category/category-list/category-list.component';
+import { AddCategoryComponent } from './category/add-category/add-category.component';
+import { EditCategoryComponent } from './category/edit-category/edit-category.component';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
-    CategoryLibComponent
+    CategoryListComponent,
+    AddCategoryComponent,
+    EditCategoryComponent,
   ],
   imports: [
-  
-    CategoryLibRoutingModule
+    CategoryLibRoutingModule,
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    RouterModule,
+    CommonModule
   ],
   exports: [
-    CategoryLibComponent
+    CategoryLibRoutingModule,
+    CategoryListComponent,
+    AddCategoryComponent,
+    EditCategoryComponent,
   ]
 })
 export class CategoryLibModule { }

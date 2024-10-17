@@ -1,19 +1,25 @@
 import { NgModule } from '@angular/core';
 import { ImageSelectorLibComponent } from './image-selector-lib.component';
-import { ImageSelectorLibRoutingModule } from './image-selector-lib-routing.module';
-
-
+import { ImageSelectorComponent } from './components/image-selector/image-selector.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
-    ImageSelectorLibComponent
+    ImageSelectorLibComponent,
+    ImageSelectorComponent
   ],
   imports: [
-  
-    ImageSelectorLibRoutingModule
+    BrowserModule,
+    RouterModule,
+    FormsModule,
+    HttpClientModule
   ],
   exports: [
-    ImageSelectorLibComponent
+    ImageSelectorLibComponent,
+    ImageSelectorComponent
   ]
 })
 export class ImageSelectorLibModule { }

@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build-category-lib":"ng build category-lib",
+    "build-image-selector-lib":"ng build image-selector-lib"
   },
   "private": true,
   "dependencies": {
