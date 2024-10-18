@@ -7,10 +7,11 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build-category-lib":"ng build category-lib",
-    "build-image-selector-lib":"ng build image-selector-lib",
-    "pack-category-lib":"cd dist/category-lib && npm pack",
-    "pack-image-selector-lib":"cd dist/image-selector-lib && npm pack"
+    "build-category-lib": "ng build category-lib",
+    "build-image-selector-lib": "ng build image-selector-lib",
+    "build-custom-markdown-lib": "ng build custom-markdown-lib",
+    "pack-category-lib": "cd dist/category-lib && npm pack",
+    "pack-custom-markdown-lib": "cd dist/custom-markdown-lib && npm pack"
   },
   "private": true,
   "dependencies": {
@@ -22,6 +23,8 @@
     "@angular/platform-browser": "^16.0.0",
     "@angular/platform-browser-dynamic": "^16.0.0",
     "@angular/router": "^16.0.0",
+    "highlight.js": "^11.10.0",
+    "marked": "^14.1.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"

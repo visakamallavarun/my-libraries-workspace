@@ -7,6 +7,9 @@
       "category-lib": [
         "dist/category-lib"
       ],
+      "custom-markdown-lib": [
+        "dist/custom-markdown-lib"
+      ],
       "image-selector-lib": [
         "dist/image-selector-lib"
       ]
