@@ -16,10 +16,62 @@ import { CustomMarkdownLibService } from './custom-markdown-lib.service';
   `,
   styles: [
     `
-    .markdown-toolbar { display: flex; gap: 8px; margin-bottom: 10px; }
-    textarea { width: 100%; height: 200px; margin-bottom: 10px; }
-    .markdown-preview { background-color: #f0f0f0; padding: 10px; border: 1px solid #ddd; }
-  `
+    .markdown-toolbar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 15px;
+      background-color: #f4f4f9; /* Light background for the toolbar */
+      padding: 10px; /* Padding around the toolbar */
+      border-radius: 4px; /* Slightly rounded corners */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
+
+    button {
+      padding: 8px 12px; /* Padding for buttons */
+      font-size: 14px; /* Font size for buttons */
+      color: #fff; /* White text color */
+      background-color: #007bff; /* Primary button color */
+      border: none; /* Remove default border */
+      border-radius: 4px; /* Rounded corners for buttons */
+      cursor: pointer; /* Pointer cursor on hover */
+      transition: background-color 0.3s; /* Smooth background color transition */
+    }
+
+    button:hover {
+      background-color: #0056b3; /* Darker shade on hover */
+    }
+
+    textarea {
+      width: 100%;
+      height: 200px;
+      margin-bottom: 15px;
+      padding: 10px; /* Padding inside textarea */
+      border: 1px solid #ccc; /* Border for textarea */
+      border-radius: 4px; /* Rounded corners for textarea */
+      font-size: 14px; /* Font size for textarea */
+      font-family: 'Courier New', Courier, monospace; /* Monospace font for better readability */
+      resize: vertical; /* Allow vertical resizing */
+      outline: none; /* Remove outline on focus */
+      transition: border-color 0.3s; /* Smooth border color transition */
+    }
+
+    textarea:focus {
+      border-color: #007bff; /* Change border color on focus */
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Subtle shadow effect */
+    }
+
+    .markdown-preview {
+      background-color: #f0f0f0; /* Background color for preview */
+      padding: 15px; /* Padding inside preview area */
+      border: 1px solid #ddd; /* Border around preview area */
+      border-radius: 4px; /* Rounded corners for preview */
+      max-height: 400px; /* Max height for preview */
+      overflow-y: auto; /* Allow vertical scrolling if content exceeds */
+      font-family: 'Arial', sans-serif; /* Font for preview content */
+      font-size: 14px; /* Font size for preview */
+      line-height: 1.6; /* Line height for better readability */
+    }
+    `
   ]
 })
 export class CustomMarkdownLibComponent {
