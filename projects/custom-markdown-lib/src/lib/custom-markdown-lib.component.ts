@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CustomMarkdownLibService } from './custom-markdown-lib.service';
 
 @Component({
@@ -24,26 +24,20 @@ import { CustomMarkdownLibService } from './custom-markdown-lib.service';
 })
 export class CustomMarkdownLibComponent {
   
-  markdownContent: string = '';
-  htmlContent: string | Promise<string> = '';
+  @Input() markdownContent: string = ''; 
+  @Output() markdownContentChange: EventEmitter<string> = new EventEmitter<string>(); 
 
-  constructor(private markdownService: CustomMarkdownLibService) {}
+  htmlContent: string = ''; // This will hold the generated HTML
 
-  updatePreview() {
-    this.htmlContent = this.markdownService.convertToHtml(this.markdownContent);
+  constructor(private markdownService: CustomMarkdownLibService) {} // Inject the service
+
+  async updatePreview() {
+    this.htmlContent = await this.markdownService.convertToHtml(this.markdownContent); // Convert markdown to HTML
+    this.markdownContentChange.emit(this.markdownContent); 
   }
 
-  applyMarkdownSyntax(prefix: string, suffix: string = '') {
-    const textarea: HTMLTextAreaElement = document.querySelector('textarea')!;
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-
-    const selectedText = this.markdownContent.slice(start, end);
-    const newText = prefix + selectedText + suffix;
-
-    this.markdownContent =
-      this.markdownContent.slice(0, start) + newText + this.markdownContent.slice(end);
-    textarea.setSelectionRange(start, start + newText.length);
+  applyMarkdownSyntax(syntax: string, closeSyntax?: string) {
+    this.markdownContent += syntax + (closeSyntax || '');
     this.updatePreview(); 
   }
 }

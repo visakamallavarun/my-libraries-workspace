@@ -24,7 +24,12 @@ export class CustomMarkdownLibService {
     });
   }
 
-  convertToHtml(markdown: string): string | Promise<string>{
-    return marked(markdown);
+  async convertToHtml(markdown: string): Promise<string> {
+    const html = marked(markdown); // Convert markdown to HTML
+    // Check if the result is a promise and handle it
+    if (html instanceof Promise) {
+      return html; // If it's a promise, return it directly
+    }
+    return Promise.resolve(html); // Otherwise, wrap it in a resolved promise
   }
 }
