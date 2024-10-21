@@ -6,15 +6,15 @@ import { EditCategoryComponent } from './category/edit-category/edit-category.co
 
 const routes: Routes = [
   {
-    path: 'admin/categories',
+    path: '',
     component: CategoryListComponent,
   },
   {
-    path: 'admin/categories/add',
+    path: 'add',
     component: AddCategoryComponent,
   },
   {
-    path: 'admin/categories/:id',
+    path: ':id',
     component: EditCategoryComponent,
   }
 ];

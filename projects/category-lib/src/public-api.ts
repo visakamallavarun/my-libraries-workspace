@@ -12,3 +12,4 @@ export * from './lib/category/category-list/category-list.component';
 export * from './lib/category/add-category/add-category.component';
 export * from './lib/category/edit-category/edit-category.component';
 export * from './lib/category-lib-routing.module';
+export * from './lib/config';

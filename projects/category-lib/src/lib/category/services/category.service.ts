@@ -4,14 +4,14 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Category } from '../models/category.model';
 import { UpdateCategoryRequest } from '../models/update-category-request.model';
-import { environment } from '../../environments/environment.development';
+import { Environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private environment:Environment) { }
 
   getAllCategories(
     query?: string, sortBy?: string, sortDirection?: string,
@@ -38,28 +38,28 @@ export class CategoryService {
       params = params.set('pageSize', pageSize)
     }
 
-    return this.http.get<Category[]>(`${environment.apiBaseUrl}/api/categories`, {
+    return this.http.get<Category[]>(`${this.environment.apiBaseUrl}/api/categories`, {
       params: params
     });
   }
 
   getCategoryById(id: string): Observable<Category> {
-    return this.http.get<Category>(`${environment.apiBaseUrl}/api/categories/${id}`);
+    return this.http.get<Category>(`${this.environment.apiBaseUrl}/api/categories/${id}`);
   }
 
   getCategoryCount(): Observable<number> {
-    return this.http.get<number>(`${environment.apiBaseUrl}/api/categories/count`);
+    return this.http.get<number>(`${this.environment.apiBaseUrl}/api/categories/count`);
   }
 
   addCategory(model: AddCategoryRequest): Observable<void> {
-    return this.http.post<void>(`${environment.apiBaseUrl}/api/categories?addAuth=true`, model);
+    return this.http.post<void>(`${this.environment.apiBaseUrl}/api/categories?addAuth=true`, model);
   }
 
   updateCategory(id: string, updateCategoryRequest: UpdateCategoryRequest): Observable<Category> {
-    return this.http.put<Category>(`${environment.apiBaseUrl}/api/categories/${id}?addAuth=true`, updateCategoryRequest);
+    return this.http.put<Category>(`${this.environment.apiBaseUrl}/api/categories/${id}?addAuth=true`, updateCategoryRequest);
   }
 
   deleteCategory(id: string): Observable<Category> {
-    return this.http.delete<Category>(`${environment.apiBaseUrl}/api/categories/${id}?addAuth=true`)
+    return this.http.delete<Category>(`${this.environment.apiBaseUrl}/api/categories/${id}?addAuth=true`)
   }
 }
