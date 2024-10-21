@@ -18,7 +18,6 @@ import { DefaultLibConfiguration, LibConfiguration, LibConfigurationProvider } f
   ],
   imports: [
     CategoryLibRoutingModule,
-    BrowserModule,
     FormsModule,
     HttpClientModule,
     RouterModule,

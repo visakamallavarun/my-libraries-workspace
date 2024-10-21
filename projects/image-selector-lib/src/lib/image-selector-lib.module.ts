@@ -13,7 +13,6 @@ import { DefaultLibConfiguration, LibConfiguration, LibConfigurationProvider } f
     ImageSelectorComponent
   ],
   imports: [
-    BrowserModule,
     RouterModule,
     FormsModule,
     HttpClientModule
