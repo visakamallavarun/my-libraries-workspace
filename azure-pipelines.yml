@@ -7,7 +7,7 @@ stages:
       vmImage: ubuntu-latest  # Use the latest Ubuntu image
     jobs:
       - job: Build
-        DisplayName: 'Build Libraries'
+        displayName: 'Build Libraries'
         workspace:
           clean: all  # Clean the workspace before each run
         steps:
