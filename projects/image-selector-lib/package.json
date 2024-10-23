@@ -1,5 +1,5 @@
 {
-  "name": "@BlogApp/image-selector-lib",
+  "name": "@blogapp/image-selector-lib",
   "version": "1.0.0",
   "peerDependencies": {
     "@angular/common": "^16.0.0",

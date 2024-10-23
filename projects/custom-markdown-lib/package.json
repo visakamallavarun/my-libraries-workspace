@@ -1,5 +1,5 @@
 {
-  "name": "@BlogApp/custom-markdown-lib",
+  "name": "@blogapp/custom-markdown-lib",
   "version": "1.0.0",
   "peerDependencies": {
     "@angular/common": "^16.0.0",

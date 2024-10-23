@@ -128,6 +128,6 @@ stages:
               command: 'publish'
               workingDir: '$(System.DefaultWorkingDirectory)/category-lib'
               publishRegistry: useFeed
-              publishFeed: BlogApp/BlogApp-Lib
+              publishFeed: BlogApp/blogapplib
             displayName: 'Publish category-lib'
 
