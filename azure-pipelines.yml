@@ -130,4 +130,34 @@ stages:
               publishRegistry: useFeed
               publishFeed: BlogApp/blogapplib
             displayName: 'Publish category-lib'
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              source: "current"
+              artifact: "image-selector-lib-artifact"
+              path: '$(System.DefaultWorkingDirectory)/image-selector-lib'    
+          - task: npmAuthenticate@0
+            inputs:
+              workingFile: '$(System.DefaultWorkingDirectory)/image-selector-lib/.npmrc'
+          - task: Npm@1
+            inputs:
+              command: 'publish'
+              workingDir: '$(System.DefaultWorkingDirectory)/image-selector-lib'
+              publishRegistry: useFeed
+              publishFeed: BlogApp/blogapplib
+            displayName: 'Publish image-selector-lib'
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              source: "current"
+              artifact: "custom-markdown-lib-artifact"
+              path: '$(System.DefaultWorkingDirectory)/custom-markdown-lib'    
+          - task: npmAuthenticate@0
+            inputs:
+              workingFile: '$(System.DefaultWorkingDirectory)/custom-markdown-lib/.npmrc'
+          - task: Npm@1
+            inputs:
+              command: 'publish'
+              workingDir: '$(System.DefaultWorkingDirectory)/custom-markdown-lib'
+              publishRegistry: useFeed
+              publishFeed: BlogApp/blogapplib
+            displayName: 'Publish custom-markdown-lib'
 
