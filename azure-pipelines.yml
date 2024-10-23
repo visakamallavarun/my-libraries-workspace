@@ -22,11 +22,7 @@ stages:
               npm install -g @angular/cli@16.0.6  
               npm install  
             displayName: 'Install dependencies'
-
-          - script: |
-              ng build 
-            displayName: 'Build Library workspace'
-
+            
           # Build category-lib
           - script: |
               ng build category-lib 
