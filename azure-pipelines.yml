@@ -1,96 +1,123 @@
 trigger:
 - main  # Trigger the pipeline on push to the 'main' branch
 
-pool:
-  vmImage: ubuntu-latest  # Use the latest Ubuntu image
+stages:
+  - stage: Build
+    pool:
+      vmImage: ubuntu-latest  # Use the latest Ubuntu image
+    jobs:
+      - job: Build
+        DisplayName: 'Build Libraries'
+        workspace:
+          clean: all  # Clean the workspace before each run
+        steps:
+          # Install Node.js
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '18.x'  # Use Node.js 16.x
+            displayName: 'Install Node.js'
 
-steps:
-# Install Node.js
-- task: NodeTool@0
-  inputs:
-    versionSpec: '18.x'  # Use Node.js 16.x
-  displayName: 'Install Node.js'
+          - script: |
+              cp .npmrc $(Pipeline.Workspace)  # Copy .npmrc to the working directory
+            displayName: 'Copy .npmrc'
 
-# Install Angular CLI and dependencies
-- script: |
-    npm install -g @angular/cli@16.0.6  
-    npm install  
-  displayName: 'Install dependencies'
+          # Install Angular CLI and dependencies
+          - script: |
+              npm install -g @angular/cli@16.0.6  
+              npm install  
+            displayName: 'Install dependencies'
 
-- script: |
-    ng build category-lib 
-  displayName: 'Build Library workspace'
-# Build category-lib
-- script: |
-    ng build category-lib 
-  displayName: 'Build category-lib Library'
+          - script: |
+              ng build 
+            displayName: 'Build Library workspace'
 
-# Build image-selector-lib
-- script: |
-    ng build image-selector-lib 
-  displayName: 'Build image-selector-lib Library'
+          # Build category-lib
+          - script: |
+              ng build category-lib --prod  
+            displayName: 'Build category-lib Library'
 
-# Build custom-markdown-lib
-- script: |
-    ng build custom-markdown-lib 
-  displayName: 'Build custom-markdown-lib Library'
+          # Copy .npmrc to the dist/category-lib folder
+          - script: |
+              cp .npmrc dist/category-lib/  
+            displayName: 'Copy .npmrc to category-lib dist folder'
 
-# Pack category-lib
-- script: |
-    cd dist/category-lib && npm pack 
-  displayName: 'Pack category-lib'
+          # Build image-selector-lib
+          - script: |
+              ng build image-selector-lib --prod  
+            displayName: 'Build image-selector-lib Library'
 
-# Pack image-selector-lib
-- script: |
-    cd dist/image-selector-lib && npm pack 
-  displayName: 'Pack image-selector-lib'
+          # Copy .npmrc to the dist/image-selector-lib folder
+          - script: |
+              cp .npmrc dist/image-selector-lib/  
+            displayName: 'Copy .npmrc to image-selector-lib dist folder'
 
-# Pack custom-markdown-lib
-- script: |
-    cd dist/custom-markdown-lib && npm pack 
-  displayName: 'Pack custom-markdown-lib'
+          # Build custom-markdown-lib
+          - script: |
+              ng build custom-markdown-lib --prod  
+            displayName: 'Build custom-markdown-lib Library'
 
-# Save build artifacts for category-lib
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: 'dist/category-lib'  # Path to the packed category-lib
-    Contents: '*.tgz'  # Include only the .tgz file
-    TargetFolder: '$(Build.ArtifactStagingDirectory)/category-lib'  # Staging directory
-  displayName: 'Copy category-lib Artifacts'
+          # Copy .npmrc to the dist/custom-markdown-lib folder
+          - script: |
+              cp .npmrc dist/custom-markdown-lib/  
+            displayName: 'Copy .npmrc to custom-markdown-lib dist folder'
 
-# Save build artifacts for image-selector-lib
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: 'dist/image-selector-lib'  # Path to the packed image-selector-lib
-    Contents: '*.tgz'  # Include only the .tgz file
-    TargetFolder: '$(Build.ArtifactStagingDirectory)/image-selector-lib'  # Staging directory
-  displayName: 'Copy image-selector-lib Artifacts'
+          # # Pack category-lib
+          # - script: |
+          #     cd dist/category-lib && npm pack 
+          #   displayName: 'Pack category-lib'
 
-# Save build artifacts for custom-markdown-lib
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: 'dist/custom-markdown-lib'  # Path to the packed custom-markdown-lib
-    Contents: '*.tgz'  # Include only the .tgz file
-    TargetFolder: '$(Build.ArtifactStagingDirectory)/custom-markdown-lib'  # Staging directory
-  displayName: 'Copy custom-markdown-lib Artifacts'
+          # # Pack image-selector-lib
+          # - script: |
+          #     cd dist/image-selector-lib && npm pack 
+          #   displayName: 'Pack image-selector-lib'
 
-# Publish build artifacts for category-lib
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathToPublish: '$(Build.ArtifactStagingDirectory)/category-lib'  # Publish from the staging directory for category-lib
-    artifactName: 'category-lib-artifact'  # Name of the artifact for category-lib
-  displayName: 'Publish category-lib Artifacts'
+          # # Pack custom-markdown-lib
+          # - script: |
+          #     cd dist/custom-markdown-lib && npm pack 
+          #   displayName: 'Pack custom-markdown-lib'
 
-# Publish build artifacts for image-selector-lib
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathToPublish: '$(Build.ArtifactStagingDirectory)/image-selector-lib'  # Publish from the staging directory for image-selector-lib
-    artifactName: 'image-selector-lib-artifact'  # Name of the artifact for image-selector-lib
-  displayName: 'Publish image-selector-lib Artifacts'
+          # Save build artifacts for category-lib
+          - task: CopyFiles@2
+            inputs:
+              SourceFolder: 'dist/category-lib'  # Path to the packed category-lib
+              Contents: '**'  # Include only the .tgz file
+              TargetFolder: '$(Build.ArtifactStagingDirectory)/category-lib'  # Staging directory
+            displayName: 'Copy category-lib Artifacts'
 
-# Publish build artifacts for custom-markdown-lib
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathToPublish: '$(Build.ArtifactStagingDirectory)/custom-markdown-lib'  # Publish from the staging directory for custom-markdown-lib
-    artifactName: 'custom-markdown-lib-artifact'  # Name of the artifact for custom-markdown-lib
-  displayName: 'Publish custom-markdown-lib Artifacts'
+          # Save build artifacts for image-selector-lib
+          - task: CopyFiles@2
+            inputs:
+              SourceFolder: 'dist/image-selector-lib'  # Path to the packed image-selector-lib
+              Contents: '**'  # Include only the .tgz file
+              TargetFolder: '$(Build.ArtifactStagingDirectory)/image-selector-lib'  # Staging directory
+            displayName: 'Copy image-selector-lib Artifacts'
+
+          # Save build artifacts for custom-markdown-lib
+          - task: CopyFiles@2
+            inputs:
+              SourceFolder: 'dist/custom-markdown-lib'  # Path to the packed custom-markdown-lib
+              Contents: '**'  # Include only the .tgz file
+              TargetFolder: '$(Build.ArtifactStagingDirectory)/custom-markdown-lib'  # Staging directory
+            displayName: 'Copy custom-markdown-lib Artifacts'
+
+          # Publish build artifacts for category-lib
+          - task: PublishBuildArtifacts@1
+            inputs:
+              pathToPublish: '$(Build.ArtifactStagingDirectory)/category-lib'  # Publish from the staging directory for category-lib
+              artifactName: 'category-lib-artifact'  # Name of the artifact for category-lib
+            displayName: 'Publish category-lib Artifacts'
+
+          # Publish build artifacts for image-selector-lib
+          - task: PublishBuildArtifacts@1
+            inputs:
+              pathToPublish: '$(Build.ArtifactStagingDirectory)/image-selector-lib'  # Publish from the staging directory for image-selector-lib
+              artifactName: 'image-selector-lib-artifact'  # Name of the artifact for image-selector-lib
+            displayName: 'Publish image-selector-lib Artifacts'
+
+          # Publish build artifacts for custom-markdown-lib
+          - task: PublishBuildArtifacts@1
+            inputs:
+              pathToPublish: '$(Build.ArtifactStagingDirectory)/custom-markdown-lib'  # Publish from the staging directory for custom-markdown-lib
+              artifactName: 'custom-markdown-lib-artifact'  # Name of the artifact for custom-markdown-lib
+            displayName: 'Publish custom-markdown-lib Artifacts'
+
