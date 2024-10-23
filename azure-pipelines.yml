@@ -18,7 +18,7 @@ stages:
             displayName: 'Install Node.js'
 
           - script: |
-              xcopy .\\.npmrc $(Pipeline.Workspace)  # Copy .npmrc to the working directory
+              cp .\\.npmrc $(Pipeline.Workspace)  # Copy .npmrc to the working directory
             displayName: 'Copy .npmrc'
 
           # Install Angular CLI and dependencies
