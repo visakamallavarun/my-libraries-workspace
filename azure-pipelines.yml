@@ -22,7 +22,7 @@ stages:
               npm install -g @angular/cli@16.0.6  
               npm install  
             displayName: 'Install dependencies'
-            
+
           # Build category-lib
           - script: |
               ng build category-lib 
@@ -103,4 +103,31 @@ stages:
               pathToPublish: '$(Build.ArtifactStagingDirectory)/custom-markdown-lib'  # Publish from the staging directory for custom-markdown-lib
               artifactName: 'custom-markdown-lib-artifact'  # Name of the artifact for custom-markdown-lib
             displayName: 'Publish custom-markdown-lib Artifacts'
+
+  - stage: Publish
+    dependsOn: Build
+    condition: succeeded('Build')
+    pool:
+      vmImage: ubuntu-latest  # Use the latest Ubuntu image
+    jobs:
+      - job:
+        displayName: 'Publish Libraries'
+        workspace:
+          clean: all  # Clean the workspace before each run
+        steps:
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              source: "current"
+              artifact: "category-lib-artifact"
+              path: '$(System.DefaultWorkingDirectory)/category-lib'    
+          - task: npmAuthenticate@0
+            inputs:
+              workingFile: '$(System.DefaultWorkingDirectory)/category-lib/.npmrc'
+          - task: Npm@1
+            inputs:
+              command: 'publish'
+              workingDir: '$(System.DefaultWorkingDirectory)/category-lib'
+              publishRegistry: useFeed
+              publishFeed: BlogApp/BlogApp-Lib
+            displayName: 'Publish category-lib'
 
