@@ -8,7 +8,7 @@ steps:
 # Install Node.js
 - task: NodeTool@0
   inputs:
-    versionSpec: '10.x'  # Use Node.js 16.x
+    versionSpec: '18.x'  # Use Node.js 16.x
   displayName: 'Install Node.js'
 
 # Install Angular CLI and dependencies
