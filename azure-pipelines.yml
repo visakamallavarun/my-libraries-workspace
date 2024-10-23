@@ -22,7 +22,7 @@ stages:
               npm install -g @angular/cli@16.0.6  
               npm install  
             displayName: 'Install dependencies'
-            
+
           # Build category-lib
           - script: |
               ng build category-lib 
@@ -40,23 +40,23 @@ stages:
 
           - task: CopyFiles@2
             inputs:
-              SourceFolder: '$(System.DefaultWorkingDirectory)'  # Source directory where .npmrc is located
+              SourceFolder: 'npmrc'  # Source directory where .npmrc is located
               Contents: '.npmrc'  # File to copy
-              TargetFolder: '$(System.DefaultWorkingDirectory)/dist/category-lib'  # Target directory for the copy
+              TargetFolder: 'dist/category-lib'  # Target directory for the copy
             displayName: 'Copy .npmrc to category-lib dist folder'
 
           - task: CopyFiles@2
             inputs:
-              SourceFolder: '$(System.DefaultWorkingDirectory)'  # Source directory where .npmrc is located
+              SourceFolder: 'npmrc'  # Source directory where .npmrc is located
               Contents: '.npmrc'  # File to copy
-              TargetFolder: '$(System.DefaultWorkingDirectory)/dist/image-selector-lib'  # Target directory for the copy
+              TargetFolder: 'dist/image-selector-lib'  # Target directory for the copy
             displayName: 'Copy .npmrc to image-selector-lib dist folder'
 
           - task: CopyFiles@2
             inputs:
-              SourceFolder: '$(System.DefaultWorkingDirectory)'  # Source directory where .npmrc is located
+              SourceFolder: 'npmrc'  # Source directory where .npmrc is located
               Contents: '.npmrc'  # File to copy
-              TargetFolder: '$(System.DefaultWorkingDirectory)/dist/custom-markdown-lib'  # Target directory for the copy
+              TargetFolder: 'dist/custom-markdown-lib'  # Target directory for the copy
             displayName: 'Copy .npmrc to custom-markdown-lib dist folder'
 
           # Save build artifacts for category-lib
