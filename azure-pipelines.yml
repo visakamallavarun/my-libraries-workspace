@@ -33,48 +33,39 @@ stages:
 
           # Build category-lib
           - script: |
-              ng build category-lib --prod  
+              ng build category-lib 
             displayName: 'Build category-lib Library'
-
-          # Copy .npmrc to the dist/category-lib folder
-          - script: |
-              cp .npmrc dist/category-lib/  
-            displayName: 'Copy .npmrc to category-lib dist folder'
 
           # Build image-selector-lib
           - script: |
-              ng build image-selector-lib --prod  
+              ng build image-selector-lib 
             displayName: 'Build image-selector-lib Library'
-
-          # Copy .npmrc to the dist/image-selector-lib folder
-          - script: |
-              cp .npmrc dist/image-selector-lib/  
-            displayName: 'Copy .npmrc to image-selector-lib dist folder'
 
           # Build custom-markdown-lib
           - script: |
-              ng build custom-markdown-lib --prod  
+              ng build custom-markdown-lib
             displayName: 'Build custom-markdown-lib Library'
 
-          # Copy .npmrc to the dist/custom-markdown-lib folder
-          - script: |
-              cp .npmrc dist/custom-markdown-lib/  
+          - task: CopyFiles@2
+            inputs:
+              SourceFolder: '$(System.DefaultWorkingDirectory)'  # Source directory where .npmrc is located
+              Contents: '.npmrc'  # File to copy
+              TargetFolder: '$(System.DefaultWorkingDirectory)/dist/category-lib'  # Target directory for the copy
+            displayName: 'Copy .npmrc to category-lib dist folder'
+
+          - task: CopyFiles@2
+            inputs:
+              SourceFolder: '$(System.DefaultWorkingDirectory)'  # Source directory where .npmrc is located
+              Contents: '.npmrc'  # File to copy
+              TargetFolder: '$(System.DefaultWorkingDirectory)/dist/image-selector-lib'  # Target directory for the copy
+            displayName: 'Copy .npmrc to image-selector-lib dist folder'
+
+          - task: CopyFiles@2
+            inputs:
+              SourceFolder: '$(System.DefaultWorkingDirectory)'  # Source directory where .npmrc is located
+              Contents: '.npmrc'  # File to copy
+              TargetFolder: '$(System.DefaultWorkingDirectory)/dist/custom-markdown-lib'  # Target directory for the copy
             displayName: 'Copy .npmrc to custom-markdown-lib dist folder'
-
-          # # Pack category-lib
-          # - script: |
-          #     cd dist/category-lib && npm pack 
-          #   displayName: 'Pack category-lib'
-
-          # # Pack image-selector-lib
-          # - script: |
-          #     cd dist/image-selector-lib && npm pack 
-          #   displayName: 'Pack image-selector-lib'
-
-          # # Pack custom-markdown-lib
-          # - script: |
-          #     cd dist/custom-markdown-lib && npm pack 
-          #   displayName: 'Pack custom-markdown-lib'
 
           # Save build artifacts for category-lib
           - task: CopyFiles@2
