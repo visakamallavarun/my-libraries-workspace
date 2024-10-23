@@ -17,6 +17,9 @@ steps:
     npm install  
   displayName: 'Install dependencies'
 
+- script: |
+    ng build category-lib 
+  displayName: 'Build Library workspace'
 # Build category-lib
 - script: |
     ng build category-lib 
