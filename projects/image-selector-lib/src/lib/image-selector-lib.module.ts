@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { DefaultLibConfiguration, LibConfiguration, LibConfigurationProvider } from './config';
+import { DefaultLibConfiguration, LibConfiguration, LibConfigurationProviderImg } from './config';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,7 @@ export class ImageSelectorLibModule {
       ngModule: ImageSelectorLibModule,
       providers: [
         libModuleConfiguration.config || {
-          provide: LibConfigurationProvider,
+          provide: LibConfigurationProviderImg,
           useClass: DefaultLibConfiguration,
         },
       ],

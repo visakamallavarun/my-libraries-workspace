@@ -10,12 +10,12 @@ export class LibConfiguration {
 
 @Injectable({ providedIn: 'root' })
 export abstract class LibConfigurationProviderImg {
-  abstract get config(): LibToConfigureConfigurationImg;
+  abstract get configImg(): LibToConfigureConfigurationImg;
 }
 
 @Injectable({ providedIn: 'root' })
 export class DefaultLibConfiguration implements LibConfigurationProviderImg {
-  get config(): LibToConfigureConfigurationImg {
+  get configImg(): LibToConfigureConfigurationImg {
     return { backendApi: "" };
   }
 }

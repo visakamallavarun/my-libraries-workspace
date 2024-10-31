@@ -5,10 +5,10 @@ import { LibConfigurationProviderImg } from "../config";
   providedIn: 'root'
 })
 export class Environmentdevelopment implements OnInit {
-  apiBaseUrl:String= this.configurationProvider.config.backendApi;
+  apiBaseUrl:String= this.configurationProvider.configImg.backendApi;
   constructor(public configurationProvider: LibConfigurationProviderImg) {}
 
   ngOnInit() {
-    console.log(this.configurationProvider.config);
+    console.log(this.configurationProvider.configImg);
   }
 }
