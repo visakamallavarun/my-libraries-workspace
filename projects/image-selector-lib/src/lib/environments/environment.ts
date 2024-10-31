@@ -10,8 +10,7 @@ export class Environment {
 
   constructor(private configurationProvider: LibConfigurationProvider) {
     // Subscribe to config$ and initialize apiBaseUrl when config is available
-    this.configurationProvider.config$
-      .pipe(filter(config => !!config.backendApi)) // Ensure backendApi is defined
+    this.configurationProvider.config$ // Ensure backendApi is defined
       .subscribe(config => {
         this.apiBaseUrl = config.backendApi;
         console.log('Configuration loaded:', config);
