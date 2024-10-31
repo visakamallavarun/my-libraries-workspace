@@ -1,7 +1,6 @@
 import { Injectable, Provider } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
 
-export class LibToConfigureConfiguration {
+export class LibToConfigureConfigurationImg {
   backendApi: string = '';
 }
 
@@ -10,16 +9,13 @@ export class LibConfiguration {
 }
 
 @Injectable({ providedIn: 'root' })
-export abstract class LibConfigurationProvider {
-  abstract config$: Observable<LibToConfigureConfiguration>;
-  abstract setConfig(config: LibToConfigureConfiguration): void;
+export abstract class LibConfigurationProviderImg {
+  abstract get config(): LibToConfigureConfigurationImg;
 }
 
 @Injectable({ providedIn: 'root' })
-export class DefaultLibConfiguration implements LibConfigurationProvider {
-  private configSubject = new BehaviorSubject<LibToConfigureConfiguration>({ backendApi: '' });
-  config$ = this.configSubject.asObservable();
-  setConfig(config: LibToConfigureConfiguration): void {
-    this.configSubject.next(config);
+export class DefaultLibConfiguration implements LibConfigurationProviderImg {
+  get config(): LibToConfigureConfigurationImg {
+    return { backendApi: "" };
   }
 }

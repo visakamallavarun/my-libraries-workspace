@@ -1,21 +1,14 @@
-// File: environment.development.ts
-import { Injectable } from "@angular/core";
-import { LibConfigurationProvider } from "../config";
-import { filter } from "rxjs/operators";
+import { Injectable, OnInit } from "@angular/core";
+import { LibConfigurationProviderImg } from "../config";
 
 @Injectable({
   providedIn: 'root'
 })
-export class Environmentdevelopment {
-  apiBaseUrl: string | undefined;
+export class Environmentdevelopment implements OnInit {
+  apiBaseUrl:String= this.configurationProvider.config.backendApi;
+  constructor(public configurationProvider: LibConfigurationProviderImg) {}
 
-  constructor(private configurationProvider: LibConfigurationProvider) {
-    // Subscribe to config$ and initialize apiBaseUrl when config is available
-    this.configurationProvider.config$
-      .pipe(filter(config => !!config.backendApi)) // Ensure backendApi is defined
-      .subscribe(config => {
-        this.apiBaseUrl = config.backendApi;
-        console.log('Configuration loaded:', config);
-      });
+  ngOnInit() {
+    console.log(this.configurationProvider.config);
   }
 }
