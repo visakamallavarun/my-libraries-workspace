@@ -4,8 +4,8 @@ import { ImageSelectorComponent } from './components/image-selector/image-select
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { BrowserModule } from '@angular/platform-browser';
 import { DefaultLibConfiguration, LibConfiguration, LibConfigurationProviderImg } from './config';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,8 @@ import { DefaultLibConfiguration, LibConfiguration, LibConfigurationProviderImg 
   imports: [
     RouterModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
   ],
   exports: [
     ImageSelectorLibComponent,
